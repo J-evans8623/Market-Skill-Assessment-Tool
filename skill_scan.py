@@ -46,7 +46,7 @@ class Scanner:
             greater = [key for key in array if data[key] > data[pivot]]
 
             # left sub array: greater + middle sub array: equals + right sub array: smaller
-            return cls.QuickSort(greater, order.lower()) + equals + cls.QuickSort(smaller, order.lower())
+            return cls.QuickSort(greater, data, order.lower()) + equals + cls.QuickSort(smaller, data, order.lower())
     @classmethod
     def read_data(cls):
         try:
@@ -57,6 +57,8 @@ class Scanner:
             # Read and Process data from file
             skills_data = {}
             out_data.write("Job market summary as of Date: "+datetime.today().strftime('%Y-%m-%d, Time: %H:%M:%S')+"\n")
+            out_data_b.write(
+                "Job market summary as of Date: " + datetime.today().strftime('%Y-%m-%d, Time: %H:%M:%S') + "\n")
             # for-loop reads data from skill_set file
             for x in input_data:
                 skill = x.strip("\n")
@@ -70,15 +72,23 @@ class Scanner:
                 else:
                     # This is a new skill item, update dictionary
                     skills_data.update({skill: 1})
-                # Sorting Algorithm : Sort skills in alphabetical order
-                # a_z_list =
-                # Sorting Algorithm : Sort skills in descending order based on corresponding count value
-                # desc_list =
+            # Exit for-loop and format output files
 
-                # Exit for-loop and format output file
-                for found_skill in skills_data:
-                    line = found_skill + " (" + str(skills_data[found_skill]) + ")\n"
-                    out_data.write(line)
+            keys = skills_data.keys()
+            # Sorting Algorithm : Sort skills in alphabetical order
+            a_z_list = cls.QuickSort(list(skills_data))
+            # Sorting Algorithm : Sort skills in descending order based on corresponding count value
+            desc_list = cls.QuickSort(list(skills_data), skills_data, "dsc")
+
+            # format out_data file into alphabetical order
+            for found_skill in a_z_list:
+                line = found_skill + " (" + str(skills_data[found_skill]) + ")\n"
+                out_data.write(line)
+            # format out_data_b file into descending order based on corresponding count value
+            for found_skill in desc_list:
+                line = found_skill + " (" + str(skills_data[found_skill]) + ")\n"
+                out_data_b.write(line)
+
             input_data.close()
             out_data.close()
             out_data_b.close()
