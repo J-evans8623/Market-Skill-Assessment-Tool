@@ -9,3 +9,6 @@ Run the python script, and then view the summary files for a rough idea for the 
 I will revisit this script during the summer break, to automate the manual copy/paste constraint, this script was created primarily for personal use, but i thought it might be useful for 
 other people to use freely
 
+# Demo
+There is a sample skill_set.txt file included to demonstrate how to use the script.
+
