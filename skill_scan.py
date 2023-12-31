@@ -16,10 +16,11 @@ class Scanner:
     infile = "skill_set.txt"
 
     @classmethod
-    def QuickSort(cls, array, order="asc"):
+    def QuickSort(cls, array, data=None, order="asc"):
         """
         Sort an array of elements in ascending order by default or in descending order if specified
 
+        :param data: Dictionary of (key : count) pair.
         :param array: List of elements to sort
         :param order: Use "asc" to sort in ascending order and "dsc" to sort descending order.
         :return: a Sorted array
@@ -28,16 +29,22 @@ class Scanner:
             return array
 
         pivot = array[len(array)//2]
-        smaller = [x for x in array if x < pivot]
-        equals = [x for x in array if x == pivot]
-        greater = [x for x in array if x > pivot]
 
         if order.lower() == "asc":
-            #Sort ascending order
+            # Sort the keys in Alphabetical order
+            smaller = [key for key in array if key < pivot]
+            equals = [key for key in array if key == pivot]
+            greater = [key for key in array if key > pivot]
+
             # left sub array: smaller + middle sub array: equals + right sub array: greater
             return cls.QuickSort(smaller) + equals + cls.QuickSort(greater)
+
         elif order.lower() == "dsc":
-            #Sort descending order
+            # Sorts each key in descending order based on its corresponding "count" value
+            smaller = [key for key in array if data[key] < data[pivot]]
+            equals = [key for key in array if data[key] == data[pivot]]
+            greater = [key for key in array if data[key] > data[pivot]]
+
             # left sub array: greater + middle sub array: equals + right sub array: smaller
             return cls.QuickSort(greater, order.lower()) + equals + cls.QuickSort(smaller, order.lower())
     @classmethod
@@ -65,7 +72,7 @@ class Scanner:
                     skills_data.update({skill: 1})
                 # Sorting Algorithm : Sort skills in alphabetical order
                 # a_z_list =
-                # Sorting Algorithm : Sort skills in descending order
+                # Sorting Algorithm : Sort skills in descending order based on corresponding count value
                 # desc_list =
 
                 # Exit for-loop and format output file
