@@ -35,11 +35,11 @@ class Scanner:
         if order.lower() == "asc":
             #Sort ascending order
             # left sub array: smaller + middle sub array: equals + right sub array: greater
-            return smaller + equals + greater
+            return cls.QuickSort(smaller) + equals + cls.QuickSort(greater)
         elif order.lower() == "dsc":
             #Sort descending order
             # left sub array: greater + middle sub array: equals + right sub array: smaller
-            return greater + equals + smaller
+            return cls.QuickSort(greater, order.lower()) + equals + cls.QuickSort(smaller, order.lower())
     @classmethod
     def read_data(cls):
         try:
