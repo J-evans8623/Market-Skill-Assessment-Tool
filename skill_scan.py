@@ -14,6 +14,7 @@ class Scanner:
     outfile = "Summary.txt"
     outfile_b = "Prioritized_Summary"
     infile = "skill_set.txt"
+    filter = [" (Required)"]
 
     @classmethod
     def QuickSort(cls, array, data=None, order="asc"):
@@ -62,6 +63,8 @@ class Scanner:
             # for-loop reads data from skill_set file
             for x in input_data:
                 skill = x.strip("\n")
+                if skill in cls.filter:
+                    continue
                 # Assuming one skill per line
                 unique_skills = skills_data.keys()
                 if skill in unique_skills:
